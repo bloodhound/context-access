@@ -98,27 +98,6 @@ app.post('/users', authorize, function(req, res) {
 });
 ```
 
-### Imbricated array matching
-
-Imbricate arrays to alternate AND and OR operations when asserting.
-
-```javascript
-["guest", "admin"]                guest AND admin
-[["guest", "admin"]]              guest OR admin
-["role1", ["role2", "role3"]]     role1 AND (role2 OR role3)
-
-access.allow({
-  resource: 'API',
-  role: ['admin', 'manager']
-});
-
-access.assert({
-  resource: 'API',
-  role: 'admin'
-});
-// => true
-```
-
 ## API
 
 ### exports.allow(context)
