@@ -37,7 +37,7 @@ exports.allow = function(context) {
 
 exports.assert = function(context) {
   for (var len = this.contexts.length, i=0; i<len; i++) {
-    if (this.contexts[i].match(context)) return true;
+    if (this.contexts[i].match(context, true)) return true;
     continue;
   }
   return false;
@@ -71,18 +71,37 @@ function Context(definition) {
  * Match given `context` with this context.
  *
  * @param {Context} context
+ * @param {Boolean} operator true for AND false for OR. Used for imbricated
+ * array matching.
  * @return {Boolean}
  * @api private
  */
 
-Context.prototype.match = function(context) {
+Context.prototype.match = function(context, operator) {
+  var matchImbricated = function(imbricated, operator) {
+    if (imbricated instanceof Array) {
+      for (var len = imbricated.length, i=0; i<len; i++) {
+        var match = match(imbricated[i], !operator);
+        if (!match && operator) return false;
+        if (match && !operator) return true;
+      }
+      return operator;
+    }
+    else {
+      return ~this.targets.indexOf(imbricated);
+    }
+  };
   for (var key in this) {
     if (!this.hasOwnProperty(key)) continue;
     if (!context[key]) return false;
     if (context[key] === this[key]) continue;
-    if (typeof context[key] === 'object') {
-      if (!context[key] instanceof Array) {
-        // TB
+    if (typeof this[key] === 'object') {
+      if (this[key] instanceof Array) {
+        matchImbricated.targets = context[key];
+        if (!context[key] instanceof Array) {
+          matchImbricated.targets = [context[key]];
+        }
+        if (matchImbricated(this[key], true)) continue;
       }
     }
     return false;

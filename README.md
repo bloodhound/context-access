@@ -98,18 +98,6 @@ app.post('/users', authorize, function(req, res) {
 });
 ```
 
-## API
-
-### exports.allow(context)
-
-Allow a given context when asserted.
-
-### exports.assert(context)
-
-Assert a given context. Returns `true` or `false` if it is allowed or denied.
-
-If there's no definition for a key in the given context, then it is ignored.
-
 ### Imbricated array matching
 
 Imbricate arrays to alternate AND and OR operations when asserting.
@@ -130,6 +118,18 @@ access.assert({
 });
 // => true
 ```
+
+## API
+
+### exports.allow(context)
+
+Allow a given context when asserted.
+
+### exports.assert(context)
+
+Assert a given context. Returns `true` or `false` if it is allowed or denied.
+
+If there's no definition for a key in the given context, then it is ignored.
 
 ## Tests
 
