@@ -12,8 +12,20 @@ you need by allowing maps of arbitrary keys and values called contexts.
 
 ## Installation
 
+### Node
+
+Using [npm](https://npmjs.org/):
+
 ```sh
 npm install context-access
+```
+
+### Browser
+
+Using [component](https://github.com/component/component/):
+
+```sh
+component install bloodhound/context-access
 ```
 
 ## Example
