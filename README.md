@@ -87,7 +87,7 @@ Use contexts to match routes in Express:
 
 ```javascript
 var app = require('express')();
-var access = require('coaccess');
+var access = require('context-access');
 
 access.allow({
   role: 'guest',
