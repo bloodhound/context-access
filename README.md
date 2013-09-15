@@ -1,10 +1,9 @@
 # context-access
 
 Powerful access control with a dead simple API. Build any access control scheme
-you need by allowing or denying maps of arbitrary keys and values called
-contexts.
+you need by allowing maps of arbitrary keys and values called contexts.
 
-* Simple — just three API methods.
+* Simple — just two API methods.
 * Powerful — flexible enough to build any API scheme.
 * Browser support — works on the client or server.
 
@@ -115,3 +114,16 @@ access.assert({
   role: 'admin'
 });
 // => true
+
+## Tests
+
+Tests are written with [mocha](https://github.com/visionmedia/mocha) and
+[should](https://github.com/visionmedia/should.js) using BDD-style assertions.
+
+Run them with npm:
+
+```sh
+npm test
+```
+
+## MIT Licensed
