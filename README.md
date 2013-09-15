@@ -36,32 +36,34 @@ The simplest example is a traditional roles-based access control system:
 var access = require('context-access');
 
 access.allow({
-  url: '/public'
+  url: '/public',
+  role: 'guest'
 });
 
 access.assert({
-  role: user.role // 'guest'
+  url: '/public'
 });
 // => false
 ```
 
 The call to assert returns `false` because the properties in the context
-asserted do not match any allowed context. However, if we add a matching `url`
+asserted do not match any allowed context. However, if we add a matching `role`
 property:
 
 ```javascript
 access.allow({
-  url: '/public'
+  url: '/public',
+  role: 'guest'
 });
 
 access.assert({
   url: '/public',
-  role: user.role // 'guest'
+  role: 'guest'
 });
 // => true
 ```
 
-Imbricate arrays to alternate AND and OR operations when asserting.
+You can imbricate arrays to alternate AND and OR operations when asserting:
 
 ```javascript
 ["role1", "role1"]                role1 AND role2
@@ -69,11 +71,12 @@ Imbricate arrays to alternate AND and OR operations when asserting.
 ["role1", ["role2", "role3"]]     role1 AND (role2 OR role3)
 
 access.allow({
-  roles: [['role1', 'role2']]
+  url: '/private',
+  roles: [['manager', 'admin']]
 });
 
 access.assert({
-  roles: 'role2'
+  roles: 'manager'
 });
 // => true
 ```
