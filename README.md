@@ -1,5 +1,8 @@
 # context-access
 
+[![Build Status](https://secure.travis-ci.org/bloodhound/context-access.png)](http://travis-ci.org/bloodhound/context-access) 
+[![Dependency Status](https://david-dm.org/bloodhound/context-access.png)](http://david-dm.org/bloodhound/context-access)
+
 Powerful access control with a dead simple API. Build any access control scheme
 you need by allowing maps of arbitrary keys and values called contexts.
 
@@ -114,6 +117,7 @@ access.assert({
   role: 'admin'
 });
 // => true
+```
 
 ## Tests
 
