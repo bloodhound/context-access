@@ -1,0 +1,28 @@
+{
+  "name": "context-access",
+  "description": "Powerful access control with a dead simple API.",
+  "keywords": ["acl", "permissions", "access control", "permission", "access"],
+  "author": "Bloodhound <alex@bloodhound.com>",
+  "version": "0.0.1",
+  "contributors": [
+    {
+      "name": "Alex Mingoia",
+      "email": "alex@bloodhound.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bloodhound/context-access.git"
+  },
+  "devDependencies": {
+    "mocha": "1.12.1",
+    "should": "1.2.2"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test node_modules/mocha/bin/mocha --bail --reporter spec $(find test -name \"*.js\")"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "license": "MIT"
+}
