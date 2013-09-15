@@ -3,6 +3,7 @@
   "description": "Powerful access control with a dead simple API.",
   "keywords": ["acl", "permissions", "access control", "permission", "access"],
   "author": "Bloodhound <alex@bloodhound.com>",
+  "homepage": "https://github.com/bloodhound/context-access",
   "version": "0.0.1",
   "contributors": [
     {
