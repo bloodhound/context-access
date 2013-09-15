@@ -90,10 +90,6 @@ app.post('/users', authorize, function(req, res) {
 
 Allow a given context when asserted.
 
-### exports.deny(context)
-
-Deny a given context asserted.
-
 ### exports.assert(context)
 
 Assert a given context. Returns `true` or `false` if it is allowed or denied.
