@@ -30,10 +30,7 @@ component install bloodhound/context-access
 
 ## Example
 
-### Roles
-
-The simplest example is a traditional roles-based access control system using
-contexts:
+The simplest example is a traditional roles-based access control system:
 
 ```javascript
 var access = require('context-access');
@@ -42,22 +39,43 @@ access.allow({
   url: '/public'
 });
 
+access.assert({
+  role: user.role // 'guest'
+});
+// => false
+```
+
+The call to assert returns `false` because the properties in the context
+asserted do not match any allowed context. However, if we add a matching `url`
+property:
+
+```javascript
 access.allow({
-  url: '/private',
-  role: 'admin'
+  url: '/public'
 });
 
 access.assert({
   url: '/public',
-  role: 'guest'
+  role: user.role // 'guest'
 });
 // => true
+```
+
+Imbricate arrays to alternate AND and OR operations when asserting.
+
+```javascript
+["role1", "role1"]                role1 AND role2
+[["role1", "role2"]]              role1 OR role2
+["role1", ["role2", "role3"]]     role1 AND (role2 OR role3)
+
+access.allow({
+  roles: [['role1', 'role2']]
+});
 
 access.assert({
-  url: '/private',
-  role: 'guest'
+  roles: 'role2'
 });
-// => false
+// => true
 ```
 
 ### Express middleware
@@ -93,6 +111,7 @@ var authorize = function(req, res, next) {
   res.send(403, 'You must be an admin to do this!');
 };
 
+// Use route middleware
 app.post('/users', authorize, function(req, res) {
   // ...
 });
@@ -109,6 +128,10 @@ Allow a given context when asserted.
 Assert a given context. Returns `true` or `false` if it is allowed or denied.
 
 If there's no definition for a key in the given context, then it is ignored.
+
+## Browser support
+
+Firefox, Chrome, Safari, IE9+
 
 ## Tests
 

@@ -78,28 +78,30 @@ function Context(definition) {
  */
 
 Context.prototype.match = function(context, operator) {
+  var imbricatedTargets = [];
   var matchImbricated = function(imbricated, operator) {
     if (imbricated instanceof Array) {
       for (var len = imbricated.length, i=0; i<len; i++) {
-        var match = match(imbricated[i], !operator);
+        var match = matchImbricated(imbricated[i], !operator);
         if (!match && operator) return false;
         if (match && !operator) return true;
       }
       return operator;
     }
     else {
-      return ~this.targets.indexOf(imbricated);
+      return ~imbricatedTargets.indexOf(imbricated);
     }
   };
+  var results = [];
   for (var key in this) {
     if (!this.hasOwnProperty(key)) continue;
     if (!context[key]) return false;
     if (context[key] === this[key]) continue;
     if (typeof this[key] === 'object') {
       if (this[key] instanceof Array) {
-        matchImbricated.targets = context[key];
-        if (!context[key] instanceof Array) {
-          matchImbricated.targets = [context[key]];
+        imbricatedTargets = context[key];
+        if (!(context[key] instanceof Array)) {
+          imbricatedTargets = [context[key]];
         }
         if (matchImbricated(this[key], true)) continue;
       }

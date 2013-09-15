@@ -1,7 +1,7 @@
 {
   "name": "context-access",
   "description": "Powerful access control with a dead simple API.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "keywords": ["acl", "permissions", "access control", "permission", "access"],
   "repo": "bloodhound/context-access",
   "scripts": [

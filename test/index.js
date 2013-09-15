@@ -57,23 +57,32 @@ describe('exports.assert', function() {
 
   it('should match contexts', function(done) {
     access.allow({
-      application: 'api',
-      role: 'guest'
+      application: 'one',
+      role: ['role1', ['role2', 'role3']]
+    });
+    access.allow({
+      application: 'two',
+      role: [['role2', 'role3']]
     });
     var result = access.assert({
-      role: 'guest'
+      role: 'role1'
     });
     should.exist(result);
     result.should.be.a('boolean');
     result.should.equal(false);
     result = access.assert({
-      application: 'a',
-      role: 'guest'
+      application: 'one',
+      role: 'role1'
     });
     result.should.equal(false);
     result = access.assert({
-      application: 'api',
-      role: 'guest'
+      application: 'one',
+      role: ['role1', 'role3']
+    });
+    result.should.equal(true);
+    result = access.assert({
+      application: 'two',
+      role: 'role2'
     });
     result.should.equal(true);
     done();
