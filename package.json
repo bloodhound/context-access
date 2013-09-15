@@ -4,7 +4,7 @@
   "keywords": ["acl", "permissions", "access control", "permission", "access"],
   "author": "Bloodhound <alex@bloodhound.com>",
   "homepage": "https://github.com/bloodhound/context-access",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "contributors": [
     {
       "name": "Alex Mingoia",
