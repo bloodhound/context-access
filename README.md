@@ -63,6 +63,8 @@ access.assert({
 // => true
 ```
 
+### AND and OR operations
+
 You can imbricate arrays to alternate AND and OR operations when asserting:
 
 ```javascript
@@ -89,16 +91,11 @@ Use contexts to match routes in Express:
 var app = require('express')();
 var access = require('context-access');
 
+// Allow users with manager or admin role to POST to /users
 access.allow({
-  role: 'guest',
   path: '/users',
-  method: 'GET'
-});
-
-access.allow({
-  role: 'admin',
-  path: '/users',
-  method: ['GET', 'PUT', 'POST', 'DELETE']
+  method: [['GET', 'POST']]
+  role: [['manager', 'admin']],
 });
 
 // Route middleware
@@ -111,7 +108,9 @@ var authorize = function(req, res, next) {
   if (access.assert(context)) {
     return next();
   }
-  res.send(403, 'You must be an admin to do this!');
+  else {
+    res.send(403, 'You must be an admin to do this!');
+  }
 };
 
 // Use route middleware
