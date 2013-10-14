@@ -4,7 +4,7 @@
   "keywords": ["acl", "permissions", "access control", "permission", "access"],
   "author": "Bloodhound <alex@bloodhound.com>",
   "homepage": "https://github.com/bloodhound/context-access",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "contributors": [
     {
       "name": "Alex Mingoia",
@@ -20,7 +20,7 @@
     "should": "1.2.2"
   },
   "scripts": {
-    "test": "NODE_ENV=test node_modules/mocha/bin/mocha --bail --reporter spec $(find test -name \"*.js\")"
+    "test": "NODE_ENV=test node_modules/mocha/bin/mocha --bail --reporter spec test"
   },
   "engines": {
     "node": ">= 0.10"
