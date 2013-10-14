@@ -22,7 +22,10 @@ exports.contexts = [];
  */
 
 exports.allow = function(context) {
-  this.contexts.push(new Context(context));
+  if (!(context instanceof Context)) {
+    context = new Context(context);
+  }
+  this.contexts.push(context);
 };
 
 /**
@@ -31,14 +34,23 @@ exports.allow = function(context) {
  * If there's no definition for a key in the given context then it is ignored.
  *
  * @param {Context} context
+ * @param {Context} target Optional. A target context to assert a match.
  * @return {Boolean}
  * @api public
  */
 
-exports.assert = function(context) {
-  for (var len = this.contexts.length, i=0; i<len; i++) {
-    if (this.contexts[i].match(context, true)) return true;
-    continue;
+exports.assert = function(context, target) {
+  if (target) {
+    if (!(target instanceof Context)) {
+      target = new Context(target);
+    }
+    if (target.match(context)) return true;
+  }
+  else {
+    for (var len = this.contexts.length, i=0; i<len; i++) {
+      if (this.contexts[i].match(context)) return true;
+      continue;
+    }
   }
   return false;
 };
@@ -68,6 +80,12 @@ function Context(definition) {
 };
 
 /**
+ * Export `Context`
+ */
+
+module.exports.Context = Context;
+
+/**
  * Match given `context` with this context.
  *
  * @param {Context} context
@@ -78,6 +96,7 @@ function Context(definition) {
  */
 
 Context.prototype.match = function(context, operator) {
+  if (operator === undefined) operator = true;
   var imbricatedTargets = [];
   var matchImbricated = function(imbricated, operator) {
     if (imbricated instanceof Array) {

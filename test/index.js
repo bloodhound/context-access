@@ -7,6 +7,13 @@ describe('module', function() {
     done();
   });
 
+  it('should export Context', function(done) {
+    should.exist(access);
+    access.should.have.property('Context');
+    access.allow.should.be.a('function');
+    done();
+  });
+
   it('should export allow()', function(done) {
     should.exist(access);
     access.should.have.property('allow');
@@ -55,7 +62,7 @@ describe('exports.assert', function() {
     done();
   });
 
-  it('should match contexts', function(done) {
+  it('should match allowed contexts', function(done) {
     access.allow({
       application: 'one',
       role: ['role1', ['role2', 'role3']]
@@ -85,6 +92,15 @@ describe('exports.assert', function() {
       role: 'role2'
     });
     result.should.equal(true);
+    done();
+  });
+
+  it('should match provided target context', function(done) {
+    var target = new access.Context({ role: 'guest' });
+    result = access.assert({ role: 'guest' }, target);
+    result.should.equal(true);
+    result = access.assert({ role: 'admin' }, target);
+    result.should.equal(false);
     done();
   });
 });
